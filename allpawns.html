@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chess Game</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav id="navbar">
+        <div id="logo">
+            <img src="logo.jpg" alt="ChessWorld.com">
+        </div>
+      
+        <ul>
+            <li class="item"><a href="index.html">Home</a></li>
+            <li class="item"><a href="partners.html">Partners</a></li>
+            <li class="item"><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+    
+    <div id="sidebar">
+        <ul>
+            <li>
+                <a href="index2.html">QuickMatch</a>
+                <a href="variants.html">Variants</a>
+                <a href="openings.html">Opening Explorer</a>
+                <a href="settings.html">Settings</a>
+            </li>
+        </ul>
+    </div>
+
+<div class="containerinput" id="inputContainer">
+    <h1>Chess Game</h1>
+    <label for="whitePlayer">Enter name of White Player:</label><br>
+    <input type="text" id="whitePlayer" placeholder="White Player Name"><br>
+    <label for="blackPlayer">Enter name of Black Player:</label><br>
+    <input type="text" id="blackPlayer" placeholder="Black Player Name"><br><br>
+    <label for="timeFormat">Select Time Format:</label><br>
+    <select id="timeFormat">
+        <option value="bullet">Bullet (1+0)</option>
+        <option value="blitz">Blitz (3+0)</option>
+        <option value="rapid">Rapid (10+0)</option>
+    </select><br><br>
+    <button id="startButton">Start Game</button>
+</div>
+
+
+
+<div class="containergame" id="gameContainer" style="display: none;">
+    <div id="gameboard"></div>
+    <div class="turn"><p>Turn:  <span id="player"> </span> </p></div>
+    <!-- <div id="info-display"></div> -->
+    <div class="whiteinfo">
+        <h4>White Name: <span id="whiteName"></span></h4>
+        <div id="white-timer">05:00</div>
+    </div>
+
+    <div id="gamestatus"></div>
+    <div class="blackinfo">
+        <h4>Black Name: <span id="blackName"></span></h4>
+        <div id="black-timer">05:00</div>
+    </div>
+</div>
+
+
+<script>
+    document.getElementById('startButton').addEventListener('click', function() {
+        let whiteInitialTime, blackInitialTime;
+        var whitePlayer = document.getElementById('whitePlayer').value;
+        var blackPlayer = document.getElementById('blackPlayer').value;
+        var timeFormat = document.getElementById('timeFormat').value;
+    
+        if (whitePlayer.trim() === '' || blackPlayer.trim() === '') {
+            alert('Please enter names for both players.');
+        } else {
+            
+            if (timeFormat === 'bullet') {
+                whiteInitialTime = 1 * 60; 
+                blackInitialTime = 1 * 60; 
+            } else if (timeFormat === 'blitz') {
+                whiteInitialTime = 3 * 60; 
+                blackInitialTime = 3 * 60; 
+            } else if (timeFormat === 'rapid') {
+                whiteInitialTime = 10 * 60; 
+                blackInitialTime = 10 * 60; 
+            }
+    
+            document.getElementById('inputContainer').style.display = 'none';
+            document.getElementById('gameContainer').style.display = 'block';
+            document.getElementById('whiteName').textContent = whitePlayer;
+            document.getElementById('blackName').textContent = blackPlayer;
+            document.getElementById('white-timer').textContent = formatTime(whiteInitialTime);
+            document.getElementById('black-timer').textContent = formatTime(blackInitialTime);
+            startTimer();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+        
+        function updateTimer() {
+            if (playerGo == 'white') {
+                whiteInitialTime--;
+                document.getElementById('white-timer').textContent = formatTime(whiteInitialTime);
+                if (whiteInitialTime=== 0) {
+                    clearInterval(timerInterval);
+                    alert('White loses on time !');
+                }
+            } else {
+                blackInitialTime--;
+                document.getElementById('black-timer').textContent = formatTime(blackInitialTime);
+                if (blackInitialTime === 0) {
+                    clearInterval(timerInterval);
+                    alert('Black loses on time!');
+                }
+            }
+        }
+        
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+    });
+    
+</script>
+
+<script src="pieces.js"></script>
+<script src="allpawns.js"></script>
+<script src="t3.js"></script>
+</body>
+</html>

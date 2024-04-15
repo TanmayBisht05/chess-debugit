@@ -1,0 +1,1 @@
+{"name":"Local: h","url":"c:\\Users\\TANMAY\\Desktop\\newthings\\chess\\ania kubow chess\\h.cpp","tests":[{"id":1712492969232,"input":"5 7\n1 2 9\n1 3 10 \n1 4 2\n1 5 6 \n2 4 14\n2 6 2\n5 6 11","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\TANMAY\\Desktop\\newthings\\chess\\ania kubow chess\\h.cpp","group":"local","local":true}
